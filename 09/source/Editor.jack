@@ -1,0 +1,106 @@
+
+// This class implements the Editor for our custom font.
+class Editor {
+
+    field int cursor_x;
+    field int cursor_y;
+
+    // Initialize cursor to zero
+    constructor Editor new() {
+        let cursor_x = 0;
+        let cursor_y = 0;
+        return this;
+    }
+
+    method void run() {
+        var char key;  // the key currently pressed by the user
+        var boolean exit;
+        
+        let exit = false;
+        do cursorDisplay();
+        while (~exit) {
+            while (key = 0) {
+                let key = Keyboard.keyPressed();                                   // Wait until key is pressed
+            }
+            if (key = 140)  { let exit = true; }                                   // ESC key
+            if (key = 129) {                                                       // Clear character if backspace is pressed
+                do clear();
+                do cursorDec();
+            }
+            if (key > 32 & key < 127) {
+                do CharacterWriter.write(key, cursor_x + cursor_y);                 // Write the character to the screen
+                do cursorInc();
+            }
+            do cursorDisplay();
+            while (~(key = 0)) {                                                    // Wait until key is released
+                let key = Keyboard.keyPressed();
+            }
+        }
+        return;
+    }
+
+    // Decrease the cursor value
+    method void cursorInc(){
+        if (cursor_x > 30){
+            if (cursor_y < 6000) {
+                let cursor_y = cursor_y + 512;
+                let cursor_x = 0;
+            }   
+        }
+        else {
+            let cursor_x = cursor_x + 1;
+        }
+        return;
+    }
+
+    // Increase the cursor value
+    method void cursorDec(){
+        if (cursor_x + cursor_y > 0) {
+            if (cursor_x = 0){
+                let cursor_y = cursor_y - 512;
+                let cursor_x = 31;
+            }
+            else {
+                let cursor_x = cursor_x - 1;
+            }
+        }
+        return;
+    }
+
+    // Clear the screen
+    method void clear() {
+        var int memAddress;
+        let memAddress = 16384+cursor_x+cursor_y;
+        do Memory.poke(memAddress+0, 0);
+        do Memory.poke(memAddress+32, 0);
+        do Memory.poke(memAddress+64, 0);
+        do Memory.poke(memAddress+96, 0);
+        do Memory.poke(memAddress+128, 0);
+        do Memory.poke(memAddress+160, 0);
+        do Memory.poke(memAddress+192, 0);
+        do Memory.poke(memAddress+224, 0);
+        do Memory.poke(memAddress+256, 0);
+        do Memory.poke(memAddress+288, 0);
+        do Memory.poke(memAddress+320, 0);
+        do Memory.poke(memAddress+352, 0);
+        do Memory.poke(memAddress+384, 0);
+        do Memory.poke(memAddress+416, 0);
+        do Memory.poke(memAddress+448, 0);
+        do Memory.poke(memAddress+480, 0);
+        return;
+    }
+
+    // Display the cursor on screen
+    method void cursorDisplay() {
+        var int memAddress;
+        let memAddress = 16384+cursor_x+cursor_y;
+        do Memory.poke(memAddress+480, -1);
+        return;
+    }
+
+    // Dispose
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+}

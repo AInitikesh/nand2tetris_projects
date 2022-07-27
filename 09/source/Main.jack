@@ -1,0 +1,21 @@
+/** 
+
+******** This project is all about loading new fonts to Hack Platform. ********
+
+I have created a minimal functionality text editor to demonstrate the use of this custom font.
+To load new font I have provided Font2Nand2Tetris.ipynb notebook which requires .tff file to generate font class.
+I have also included the font that I have used for testing (MochiyPopOne-Regular.ttf).
+Once you run the notebook, you will see a file getting generated called CharacterWriter.jack.
+This file contains the class that I have created to represent the font.
+
+Once you compile the code and load into the VM you can press keyboard keys to print, backspace to delete and esc to exit the program.
+**/
+
+class Main {
+   function void main() {
+        var Editor editor;
+        let editor = Editor.new();
+        do editor.run();
+        return;
+   }
+}
