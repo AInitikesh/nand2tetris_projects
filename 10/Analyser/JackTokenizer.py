@@ -57,10 +57,10 @@ class JackTokenizer:
                 if not line.endswith('*/'):
                     comment_section = True
                 continue
-            if line.endswith('*/') or comment_section:
+            if line.endswith('*/'):
                 comment_section = False
                 continue
-            if line.startswith('//'):
+            if line.startswith('//') or comment_section:
                 continue
             else:
                 line = line.split('//')[0]

@@ -1,6 +1,7 @@
 import os
 import sys
 from glob import glob
+from CompilationEngine import CompilationEngine
 from JackTokenizer import JackTokenizer, TokenType, KeyWord
 
 input = sys.argv[1]
@@ -11,6 +12,7 @@ else:
     input_files = [input]
 
 for input_file in input_files:
+    print("Processing file ", input_file)
     output_token_file = input_file.replace('.jack', '_T.xml')
     tokenizer = JackTokenizer(input_file)
     with open(output_token_file, 'w') as f:
@@ -79,3 +81,5 @@ for input_file in input_files:
                     f.write('<stringConstant> ' +
                             stringVal + ' </stringConstant>\n')
         f.write('</tokens>\n')
+        output_file = input_file.replace('.jack', '_.xml')
+        CompilationEngine(input_file, output_file)
