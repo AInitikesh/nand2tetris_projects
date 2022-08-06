@@ -1,0 +1,18 @@
+function Main.main 3
+push constant 25
+pop local 0
+push constant 10
+pop local 1
+push local 0
+push local 0
+push local 1
+call Math.divide 2
+push local 1
+call Math.multiply 2
+sub
+pop local 2
+push local 2
+call Output.printInt 1
+pop temp 0
+push constant 0
+return

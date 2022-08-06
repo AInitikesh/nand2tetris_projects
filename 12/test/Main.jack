@@ -1,0 +1,10 @@
+class Main {
+    function void main() {
+        var int a, b, c;
+        let a = 25;
+        let b = 10;
+        let c = a - ((a / b) * b);
+        do Output.printInt(c);
+        return;
+    }
+}
