@@ -75,22 +75,28 @@ class String {
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
+        let length = 0;
+        do setIntHelper(val);
+        return;
+    }
+
+    method void setIntHelper(int val){
         var int c;
-        var String s;
         if (val < 0) {
             let val = -val;
-            do s.appendChar(45);
+            do appendChar(45);
         }
         let c = val - ((val / 10) * 10);
         let c = c + 48;
         if (val < 10) {
-            do s.appendChar(c);
+            do appendChar(c);
         }
         else {
-            do setInt(val / 10);
-            do s.appendChar(c);
+            do setIntHelper(val / 10);
+            do appendChar(c);
         }
-        return s;
+        return;
+
     }
 
     /** Returns the new line character. */
